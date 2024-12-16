@@ -1,27 +1,35 @@
 #include <stdio.h>
-// #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
-#include <sys/wait.h>
 
-void foo(int sig)
+void foo1(int sig)
 {
-    printf("1 ");    
+    kill(466, SIGUSR1);
 }
 void foo2(int sig)
 {
-    printf("0 ");    
+    kill(466, SIGUSR2);
 }
+
 int main()
 {
-    int n;
-    signal(SIGUSR1, foo);
+    int d;
+    int i;
+    signal(SIGUSR1, foo1);
     signal(SIGUSR2, foo2);
-
-    int d = 3;
-    for (int i = 7; i >= 0; i--)
+    i = 7;
+    d = 3;
+    while (i >= 0)
     {
+        int n;
+
         n = (d >> i) & 1;
-        n == 0 ? kill(getpid(), SIGUSR2) : kill(getpid(), SIGUSR1);
+        if (n == 1)
+            kill(getpid(), SIGUSR1);
+        else
+            kill(getpid(), SIGUSR2);
+        usleep(100);
+        i--;
     }
+    return 0;
 }

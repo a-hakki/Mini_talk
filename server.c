@@ -2,26 +2,35 @@
 #include <unistd.h>
 #include <signal.h>
 
-int n;
-
+char n;
+int    ft_power(int nb, int power)
+{
+    if (power < 0)
+        return 0;
+    if (power == 0)
+        return (1);
+    return (nb * ft_power(nb, power - 1));
+}
 void foo(int sig)
 {
-    //static int i;
+    static int i;
     int x;
 
-    //i = 7;
     if (sig == SIGUSR1)
         x = 1;
     else
         x = 0;
-    //i--;
-    //if (i == -1)
-    //{
-        //printf("%d", x);
-        //n = 0;
-        //i = 7;
-    //}
-    printf("%d", x);
+    n = n + ( x * ft_power(2, 7 - i));
+    // printf("i = %d | n = %d \n", i, n);
+    i++;
+    if (i == 8)
+    {
+        printf("%c", n);
+        n = 0;
+        i = 0;
+    }
+    usleep(50);
+    fflush(stdout);
 }
 
 int main()

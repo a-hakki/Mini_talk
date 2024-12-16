@@ -1,35 +1,50 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
 
 void foo1(int sig)
 {
-    kill(466, SIGUSR1);
+    return;
 }
 void foo2(int sig)
 {
-    kill(466, SIGUSR2);
+    return;
 }
 
-int main()
+int main(int ac, char **av)
 {
-    int d;
     int i;
+    int j;
+    int id;
+
+    j = 0;
+    id = atoi(av[1]);
     signal(SIGUSR1, foo1);
     signal(SIGUSR2, foo2);
-    i = 7;
-    d = 3;
-    while (i >= 0)
+    while (av[2][j])
     {
-        int n;
+        i = 7;
+        while (i >= 0)
+        {
+            int n;
 
-        n = (d >> i) & 1;
-        if (n == 1)
-            kill(getpid(), SIGUSR1);
-        else
-            kill(getpid(), SIGUSR2);
-        usleep(100);
-        i--;
+            n = ((av[2][j]) >> i) & 1;
+            if (n == 1)
+            {
+                kill(id, SIGUSR1);
+            }
+            else
+            {
+                kill(id, SIGUSR2);
+            }
+            usleep(50);
+            i--;
+        }
+        //printf("%c\n", av[2][j]);
+        j++;
     }
+    
+    
     return 0;
 }

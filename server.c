@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <signal.h>
 
-char n;
+unsigned char n = 0;
 int    ft_power(int nb, int power)
 {
     if (power < 0)
@@ -14,22 +14,25 @@ int    ft_power(int nb, int power)
 void foo(int sig)
 {
     static int i;
-    int x;
+    int x = 0;
 
     if (sig == SIGUSR1)
         x = 1;
-    else
+    else if (sig == SIGUSR2)
         x = 0;
+    // printf("++++++++{before n : %d | x : %d | power : %d}+++++++++\n",n,x,ft_power(2, 7 - i));
     n = n + ( x * ft_power(2, 7 - i));
     // printf("i = %d | n = %d \n", i, n);
+    // printf("++++++++{after n : %d }+++++++++\n",n);
+
     i++;
     if (i == 8)
     {
-        printf("%c", n);
+        // printf("%c\n", n);
+        write(1, &n, 1);
         n = 0;
         i = 0;
     }
-    usleep(50);
     fflush(stdout);
 }
 
@@ -40,6 +43,7 @@ int main()
     signal(SIGUSR2, foo);
     while (1)
     {
-        pause();
+
     }
+    
 }

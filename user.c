@@ -3,14 +3,14 @@
 #include <signal.h>
 #include <stdlib.h>
 
-void foo1(int sig)
-{
-    return;
-}
-void foo2(int sig)
-{
-    return;
-}
+// void foo1(int sig)
+// {
+//     return;
+// }
+// void foo2(int sig)
+// {
+//     return;
+// }
 
 int main(int ac, char **av)
 {
@@ -24,8 +24,8 @@ int main(int ac, char **av)
         return (0);
     }
     id = atoi(av[1]);
-    signal(SIGUSR1, foo1);
-    signal(SIGUSR2, foo2);
+    //signal(SIGUSR1, foo1);
+    //signal(SIGUSR2, foo2);
     while (av[2][j])
     {
         i = 7;
@@ -35,16 +35,10 @@ int main(int ac, char **av)
 
             n = ((av[2][j]) >> i) & 1;
             if (n == 1)
-            {
-                printf("1\n");
                 kill(id, SIGUSR1);
-            }
             else
-            {
-                printf("0\n");
                 kill(id, SIGUSR2);
-            }
-            usleep(10000);
+            usleep(100);
             i--;
         }
         //printf("%c\n", av[2][j]);

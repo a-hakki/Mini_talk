@@ -1,49 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahakki <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/20 13:36:26 by ahakki            #+#    #+#             */
+/*   Updated: 2024/12/20 13:45:20 by ahakki           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
 
-unsigned char n = 0;
-int    ft_power(int nb, int power)
+int	ft_power(int nb, int power)
 {
-    if (power < 0)
-        return 0;
-    if (power == 0)
-        return (1);
-    return (nb * ft_power(nb, power - 1));
-}
-void foo(int sig)
-{
-    static int i;
-    int x = 0;
-
-    if (sig == SIGUSR1)
-        x = 1;
-    else if (sig == SIGUSR2)
-        x = 0;
-    // printf("++++++++{before n : %d | x : %d | power : %d}+++++++++\n",n,x,ft_power(2, 7 - i));
-    n = n + ( x * ft_power(2, 7 - i));
-    // printf("i = %d | n = %d \n", i, n);
-    // printf("++++++++{after n : %d }+++++++++\n",n);
-
-    i++;
-    if (i == 8)
-    {
-        // printf("%c\n", n);
-        write(1, &n, 1);
-        n = 0;
-        i = 0;
-    }
-    fflush(stdout);
+	if (power < 0)
+		return (0);
+	if (power == 0)
+		return (1);
+	return (nb * ft_power(nb, power - 1));
 }
 
-int main()
+void	foo(int sig)
 {
-    printf("Receiver PID: %i\n", getpid());
-    signal(SIGUSR1, foo);
-    signal(SIGUSR2, foo);
-    while (1)
-    {
+	static int	i;
+	static int	g_n;
+	int			x;
 
-    }
-    
+	if (sig == SIGUSR1)
+		x = 1;
+	else
+		x = 0;
+	g_n = g_n + (x * ft_power(2, 7 - i));
+	i++;
+	if (i == 8)
+	{
+		write(1, &g_n, 1);
+		g_n = 0;
+		i = 0;
+	}
+	fflush(stdout);
+	return ;
+}
+
+int	main(void)
+{
+	printf("Receiver PID: %i\n", getpid());
+	signal(SIGUSR1, foo);
+	signal(SIGUSR2, foo);
+	while (1)
+	{
+	}
 }

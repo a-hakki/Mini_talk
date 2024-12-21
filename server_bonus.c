@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:36:26 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/20 22:50:49 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/21 15:02:21 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	f_hundler(int sig, siginfo_t *info, void *context)
 	static int	i;
 	static int	g_n;
 	int			x;
-    int id = info->si_pid;
+	int			id;
+
+	id = info->si_pid;
 	if (sig == SIGUSR1)
 	{
 		x = 1;
@@ -52,14 +54,13 @@ void	f_hundler(int sig, siginfo_t *info, void *context)
 
 int	main(void)
 {
-    struct sigaction sa;
-    sa.sa_sigaction = f_hundler;
-    sa.sa_flags = SA_SIGINFO;
-    sigemptyset(&sa.sa_mask);
+	struct sigaction	sa;
 
-    sigaction(SIGUSR1, &sa, NULL);
-    sigaction(SIGUSR2, &sa, NULL);
-    
+	sa.sa_sigaction = f_hundler;
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	printf("Receiver PID: %i\n", getpid());
 	while (1)
 	{

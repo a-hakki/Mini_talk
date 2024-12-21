@@ -1,44 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 13:18:55 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 19:18:10 by ahakki           ###   ########.fr       */
+/*   Created: 2024/10/24 13:32:16 by ahakki            #+#    #+#             */
+/*   Updated: 2024/12/21 18:44:13 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
 #include "utilities.h"
 
-int	main(int ac, char **av)
+int	ft_atoi(char const *str)
 {
-	int	i;
-	int	j;
-	int	id;
-	int	n;
+	int		i;
+	int		sign;
+	size_t	n;
 
-	j = 0;
-	if (!av[1] || !av[2])
-		return (0);
-	id = ft_atoi(av[1]);
-	while (av[2][j])
+	i = 0;
+	sign = 1;
+	n = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		if (str[i++] == '-')
+			sign = -1;
+	while (str[i] <= '9' && str[i] >= '0')
 	{
-		i = 7;
-		while (i >= 0)
-		{
-			n = ((av[2][j]) >> i) & 1;
-			if (n == 1)
-				kill(id, SIGUSR1);
-			else
-				kill(id, SIGUSR2);
-			usleep(100);
-			i--;
-		}
-		j++;
+		n = (n * 10) + (str[i] - '0');
+		i++;
 	}
-	return (0);
+	if (n > LONG_MAX)
+		return (0 - (sign == 1));
+	return (n * sign);
 }

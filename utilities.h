@@ -1,44 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   utilities.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 13:18:55 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 19:18:10 by ahakki           ###   ########.fr       */
+/*   Created: 2024/11/16 09:47:57 by ahakki            #+#    #+#             */
+/*   Updated: 2024/12/21 19:07:10 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
-#include "utilities.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	main(int ac, char **av)
-{
-	int	i;
-	int	j;
-	int	id;
-	int	n;
+# include <unistd.h>
+# include <stdarg.h>
+# include <stddef.h>
+# include <limits.h>
 
-	j = 0;
-	if (!av[1] || !av[2])
-		return (0);
-	id = ft_atoi(av[1]);
-	while (av[2][j])
-	{
-		i = 7;
-		while (i >= 0)
-		{
-			n = ((av[2][j]) >> i) & 1;
-			if (n == 1)
-				kill(id, SIGUSR1);
-			else
-				kill(id, SIGUSR2);
-			usleep(100);
-			i--;
-		}
-		j++;
-	}
-	return (0);
-}
+int     ft_atoi(char const *str);
+void	ft_putstr(char *s);
+void     ft_putchar(char c);
+void	ft_putnbr(int n);
+
+#endif

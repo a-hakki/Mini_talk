@@ -1,44 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 13:18:55 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 19:18:10 by ahakki           ###   ########.fr       */
+/*   Created: 2024/10/24 16:46:30 by ahakki            #+#    #+#             */
+/*   Updated: 2024/12/21 18:42:39 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
 #include "utilities.h"
 
-int	main(int ac, char **av)
+void	ft_putstr(char *s)
 {
-	int	i;
-	int	j;
-	int	id;
-	int	n;
-
-	j = 0;
-	if (!av[1] || !av[2])
-		return (0);
-	id = ft_atoi(av[1]);
-	while (av[2][j])
-	{
-		i = 7;
-		while (i >= 0)
-		{
-			n = ((av[2][j]) >> i) & 1;
-			if (n == 1)
-				kill(id, SIGUSR1);
-			else
-				kill(id, SIGUSR2);
-			usleep(100);
-			i--;
-		}
-		j++;
-	}
-	return (0);
+	if (!s)
+		return ;
+	while (*s)
+		write(1, s++, 1);
 }

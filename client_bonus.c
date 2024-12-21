@@ -6,21 +6,20 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:18:55 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 15:17:22 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/21 19:18:26 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
-#include <stdlib.h>
+#include "utilities.h"
 
-void	foo(int sig)
+void	f_hundler(int sig)
 {
 	if (sig == SIGUSR1)
-		printf("the server receved is : 1\n");
+		ft_putstr("the server receved is : 1\n");
 	else
-		printf("the server receved is : 0\n");
+		ft_putstr("the server receved is : 0\n");
 }
 
 void	ft_kill(int id, char c)
@@ -48,12 +47,12 @@ int	main(int ac, char **av)
 	int	id;
 	int	n;
 
-	signal(SIGUSR1, foo);
-	signal(SIGUSR2, foo);
+	signal(SIGUSR1, f_hundler);
+	signal(SIGUSR2, f_hundler);
 	j = 0;
 	if (!av[1] || !av[2])
 		return (0);
-	id = atoi(av[1]);
+	id = ft_atoi(av[1]);
 	while (av[2][j])
 	{
 		ft_kill(id, av[2][j]);

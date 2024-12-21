@@ -1,44 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 13:18:55 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 19:18:10 by ahakki           ###   ########.fr       */
+/*   Created: 2024/10/24 16:45:30 by ahakki            #+#    #+#             */
+/*   Updated: 2024/12/21 19:10:38 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <signal.h>
 #include "utilities.h"
 
-int	main(int ac, char **av)
+static void	ftb_putchar(int c)
 {
-	int	i;
-	int	j;
-	int	id;
-	int	n;
+	c = c + 48;
+	write(1, &c, 1);
+}
 
-	j = 0;
-	if (!av[1] || !av[2])
-		return (0);
-	id = ft_atoi(av[1]);
-	while (av[2][j])
+void	ft_putnbr(int n)
+{
+	if (n == 0)
+		ftb_putchar(n);
+	if (n == -2147483648)
 	{
-		i = 7;
-		while (i >= 0)
-		{
-			n = ((av[2][j]) >> i) & 1;
-			if (n == 1)
-				kill(id, SIGUSR1);
-			else
-				kill(id, SIGUSR2);
-			usleep(100);
-			i--;
-		}
-		j++;
+		ft_putnbr((n / 10));
+		ftb_putchar(8);
 	}
-	return (0);
+	else if (n < 0)
+	{
+		write(1, "-", 1);
+		ft_putnbr(-n);
+	}
+	else if (n > 0)
+	{
+		if (n <= 9)
+			ftb_putchar(n);
+		else
+		{
+			ft_putnbr((n / 10));
+			ftb_putchar(n % 10);
+		}
+	}
 }

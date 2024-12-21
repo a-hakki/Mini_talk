@@ -6,13 +6,13 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:36:26 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/20 16:48:55 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/21 19:21:42 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
+#include "utilities.h"
 
 int	ft_power(int nb, int power)
 {
@@ -46,7 +46,9 @@ void	foo(int sig)
 
 int	main(void)
 {
-	printf("Receiver PID: %i\n", getpid());
+	ft_putstr("Receiver PID ");
+	ft_putnbr(getpid());
+	ft_putstr("\n");
 	signal(SIGUSR1, foo);
 	signal(SIGUSR2, foo);
 	while (1)

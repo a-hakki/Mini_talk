@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:18:55 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 19:18:10 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/22 14:33:04 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	int	n;
 
 	j = 0;
-	if (!av[1] || !av[2])
+	if (!av[1] || !av[2] || ac < 3)
 		return (0);
 	id = ft_atoi(av[1]);
 	while (av[2][j])

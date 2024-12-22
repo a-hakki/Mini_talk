@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:18:55 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 19:18:26 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/22 14:32:36 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,13 @@ void	ft_kill(int id, char c)
 
 int	main(int ac, char **av)
 {
-	int	i;
 	int	j;
 	int	id;
-	int	n;
 
 	signal(SIGUSR1, f_hundler);
 	signal(SIGUSR2, f_hundler);
 	j = 0;
-	if (!av[1] || !av[2])
+	if (!av[1] || !av[2] || ac < 3)
 		return (0);
 	id = ft_atoi(av[1]);
 	while (av[2][j])

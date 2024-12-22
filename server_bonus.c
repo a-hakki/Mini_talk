@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:36:26 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 19:20:45 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/22 14:31:33 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,17 @@ void	f_hundler(int sig, siginfo_t *info, void *context)
 	static int	i;
 	static int	g_n;
 	int			x;
-	int			id;
 
-	id = info->si_pid;
+	(void)context;
 	if (sig == SIGUSR1)
 	{
 		x = 1;
-		kill(id, SIGUSR1);
+		kill(info->si_pid, SIGUSR1);
 	}
 	else
 	{
 		x = 0;
-		kill(id, SIGUSR2);
+		kill(info->si_pid, SIGUSR2);
 	}
 	g_n = g_n + (x * ft_power(2, 7 - i));
 	i++;

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:36:26 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/22 14:31:33 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/24 10:09:57 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(void)
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	ft_putstr("Receiver PID");
+	ft_putstr("Receiver PID ");
 	ft_putnbr(getpid());
 	ft_putstr("\n");
 	while (1)

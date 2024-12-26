@@ -22,8 +22,8 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 
-client : all
-	cc -Wall -Werror -Wextra client.c $(NAME) -o client
+client : $(object) $(NAME)
+	$(CC) $(CFLAGS) client.c $(NAME) -o client
 
 bclient : all
 	cc -Wall -Werror -Wextra client_bonus.c $(NAME) -o bclient

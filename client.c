@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	int	n;
 
 	j = 0;
-	if (!av[1] || !av[2] || ac < 3)
+	if (!av[1] || !av[2] || ac < 3 || ft_atoi(av[1]) <= 0)
 		return (0);
 	id = ft_atoi(av[1]);
 	while (av[2][j])

@@ -51,6 +51,8 @@ int	main(int ac, char **av)
 	if (!av[1] || !av[2] || ac < 3)
 		return (0);
 	id = ft_atoi(av[1]);
+	if (id <= 0)
+		return (0);
 	while (av[2][j])
 	{
 		ft_kill(id, av[2][j]);

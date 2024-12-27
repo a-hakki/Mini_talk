@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 13:32:16 by ahakki            #+#    #+#             */
-/*   Updated: 2024/12/21 18:44:13 by ahakki           ###   ########.fr       */
+/*   Updated: 2024/12/26 16:09:13 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_atoi(char const *str)
 		n = (n * 10) + (str[i] - '0');
 		i++;
 	}
+	if (str[i] != '\0')
+		return (-1);
 	if (n > LONG_MAX)
 		return (0 - (sign == 1));
 	return (n * sign);

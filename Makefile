@@ -1,4 +1,5 @@
 NAME = libutilities.a
+NAME2 = libutilities2.a
 source =  \
           ft_putchar.c \
           ft_atoi.c \
@@ -6,6 +7,7 @@ source =  \
 		  ft_putnbr.c
 
 object = $(source:.c=.o)
+object_bonus = $(source:.c=.o)
 
 CC = cc
 
@@ -15,34 +17,28 @@ all : $(object) $(NAME)
 
 $(NAME) : $(object)
 	ar rc $(NAME) $(object)
+	$(CC) $(CFLAGS) client.c $(NAME) -o client
+	$(CC) $(CFLAGS) server.c $(NAME) -o server
+
+
+bonus : $(object_bonus) $(NAME2)
+
+$(NAME2) : $(object_bonus)
+	ar rc $(NAME2) $(object_bonus)
+	$(CC) $(CFLAGS) client_bonus.c $(NAME2) -o client_bonus
+	$(CC) $(CFLAGS) server_bonus.c $(NAME2) -o server_bonus
 
 clean :
-	rm -f $(object)
+	rm -f $(object) $(object_bonus)
 
 fclean : clean
-	rm -f $(NAME)
-
-client : $(object) $(NAME)
-	$(CC) $(CFLAGS) client.c $(NAME) -o client
-
-bclient : all
-	cc -Wall -Werror -Wextra client_bonus.c $(NAME) -o bclient
-
-server : all
-	cc -Wall -Werror -Wextra server.c $(NAME) -o server
-
-bserver : all
-	cc -Wall -Werror -Wextra server_bonus.c $(NAME) -o bserver
-
-najma : bserver server bclient client
-
+	rm -f $(NAME) $(NAME2)
 
 msh : fclean
-	rm -rf bserver server bclient client a.out
+	rm -rf server_bonus server client_bonus client a.out
 
 re : fclean all
 
 .SECONDARY: $(object)
 
 .PHONY: clean
-
